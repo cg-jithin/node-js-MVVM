@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const programmingLanguagesController = require('../controllers/programmingLanguages.controller');
+const test = require('../controllers/test.controller');
 
 /* GET programming languages. */
 router.get('/', programmingLanguagesController.get);

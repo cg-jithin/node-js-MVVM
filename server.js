@@ -2,7 +2,7 @@ require('dotenv').config()
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 3000;
 const programmingLanguagesRouter = require('./src/routes/programmingLanguages.route');
 
 // create application/json parser
@@ -22,6 +22,6 @@ app.use((err, req, res, next) => {
   return;
 });
 
-app.listen(port, '0.0.0.0', () => {
+app.listen(port, '192.168.87.99', () => {
   console.log(`Example app listening at http://localhost:${port}`)
 });

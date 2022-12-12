@@ -22,6 +22,6 @@ app.use((err, req, res, next) => {
   return;
 });
 
-app.listen(port, '192.168.87.99', () => {
+app.listen(port,'localhost', () => {
   console.log(`Example app listening at http://localhost:${port}`)
 });

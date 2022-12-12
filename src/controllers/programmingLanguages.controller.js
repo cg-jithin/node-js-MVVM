@@ -2,8 +2,8 @@ const programmingLanguages = require('../services/programmingLanguages.service')
 
 async function get(req, res, next) {
   try {
-      // res.json(await programmingLanguages.getMultiple(req.query.page));
-      res.json({"success":true});
+      res.json(await programmingLanguages.getMultiple(req.query.page));
+      // res.json({"success":true});
   } catch (err) {
       console.error(`Error while getting programming languages`, err.message);
       next(err);

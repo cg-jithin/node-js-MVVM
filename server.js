@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const port = process.env.PORT || 3000;
 const programmingLanguagesRouter = require('./src/routes/programmingLanguages.route');
+const test = require('./src/routes/test.route');
 
 // create application/json parser
 var jsonParser = bodyParser.json()
@@ -12,6 +13,7 @@ var jsonParser = bodyParser.json()
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 app.use('/programming-languages',jsonParser,urlencodedParser, programmingLanguagesRouter);
+app.use('/test',jsonParser,urlencodedParser, test);
 
 /* Error handler middleware */
 app.use((err, req, res, next) => {

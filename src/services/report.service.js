@@ -47,6 +47,7 @@ async function createComingFrom(data){
 
   return {message};
 }
+
 async function truncateCreateComingFrom(){
   const result = await db.query(
     `TRUNCATE TABLE coming_from;`
@@ -68,10 +69,52 @@ async function updateCounts(id,count,total){
   return {message};
 }
 
+async function truncateTable(name){
+  const result = await db.query(
+    "TRUNCATE TABLE " + name +";"
+  );
+  let message = 'Error in creating programming language';
+  if (result.affectedRows) {
+    message = 'Programming language created successfully';
+  }
+  return {message};
+}
+
+
+async function createLandingPageCount(data){
+  const result = await db.query(
+    `INSERT INTO landing_page_count 
+    (name, count)
+    VALUES (?,?);`,data
+  );
+  let message = 'Error in creating programming language';
+  if (result.affectedRows) {
+    message = 'Programming language created successfully';
+  }
+  return {message};
+}
+
+
+async function createConversionsionPageCount(data){
+  const result = await db.query(
+    `INSERT INTO conversison_page_count 
+    (name, count)
+    VALUES (?,?);`,data
+  );
+  let message = 'Error in creating programming language';
+  if (result.affectedRows) {
+    message = 'Programming language created successfully';
+  }
+  return {message};
+}
+
 module.exports = {
   createcounts_as_campaign,
   truncateCreatecounts_as_campaign,
   truncateCreateComingFrom,
   createComingFrom,
-  updateCounts
+  updateCounts,
+  truncateTable,
+  createLandingPageCount,
+  createConversionsionPageCount
 }

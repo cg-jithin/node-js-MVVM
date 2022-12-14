@@ -45,20 +45,33 @@ async function main() {
   const comingFromResultList = comingFromResult.map((data)=>[data._id,data.count]);
   reportController.CreateComingFrom(comingFromResultList);
 
-
-  const sampleList = await collection.find({}).limit(100).toArray();
   const gclCount = await collection.countDocuments({"gcl_id":{$ne:null}})
   const mbdIdCount = await collection.countDocuments({"mwb_id":{$ne:null}})
   const totalCount = await collection.countDocuments();
   reportController.updateCounts(1,gclCount,totalCount);
   reportController.updateCounts(2,mbdIdCount,totalCount);
-  console.log(sampleList);
-  console.log(gclCount);
-  console.log(mbdIdCount);
-  console.log(totalCount);
+
+  const landingPagesCount = await collection.aggregate([
+    {"$group" : {_id:"$landingPage", count:{$sum:1}}}
+   ]).toArray();
+  reportController.createLandingPageCount(landingPagesCount.map((data)=>[data._id,data.count]));
+
+  const conversionPageCount = await collection.aggregate([
+    {"$group" : {_id:"$conversionPage", count:{$sum:1}}}
+   ]).toArray();
+   reportController.createConversionsionCount(conversionPageCount.map((data)=>[data._id,data.count]));
+
+  const sampleList = await collection.find({}).limit(100).toArray();
 
   return 'done';
 }
+
+main()
+.then(console.log)
+.catch(console.error)
+.finally(function() { client.close();
+console.log("Closed");
+});
 
 const job = schedule.scheduleJob('27 * * * *', function(){
   main()
@@ -67,7 +80,6 @@ const job = schedule.scheduleJob('27 * * * *', function(){
   .finally(function() { client.close();
   console.log("Closed");
   });
-  console.log('The answer to life, the universe, and everything!');
 });
 
 

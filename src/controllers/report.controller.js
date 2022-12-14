@@ -29,8 +29,33 @@ async function updateCounts(id,count,total) {
   }
 }
 
+async function createConversionsionCount(list) {
+  try {
+    repoet.truncateTable('conversison_page_count');
+    list.forEach(element => {
+      repoet.createConversionsionPageCount(element)
+    });
+  } catch (err) {
+    console.error(`Error while creating programming language`, err.message);
+  }
+}
+
+async function createLandingPageCount(list) {
+  try {
+    repoet.truncateTable('landing_page_count');
+    list.forEach(element => {
+      repoet.createLandingPageCount(element)
+    });
+  } catch (err) {
+    console.error(`Error while creating programming language`, err.message);
+  }
+}
+
 module.exports = {
     CreateCountsAsCampaign,
     CreateComingFrom,
-    updateCounts
+    updateCounts,
+    createLandingPageCount,
+    createConversionsionCount
+
 };
